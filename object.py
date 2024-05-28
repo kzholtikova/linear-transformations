@@ -4,12 +4,11 @@ import matplotlib.pyplot as plt
 DIMENSIONS = ['x', 'y', 'z']
 
 class Object:
-    def __init__(self, data: np.ndarray, title: str, color: str):
+    def __init__(self, data: np.ndarray, title: str):
         self.data = data
         self.title = title
-        self.color = color
 
-    def plot(self):
+    def plot(self, color: str = 'black'):
         ax = plt.figure(figsize=(7, 5))
         if self.data.shape[1] == 3:
             ax = ax.add_subplot(projection='3d')
@@ -20,7 +19,7 @@ class Object:
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.axis('equal')
-        ax.plot(*self.data.T, color=self.color, marker='o')
+        ax.plot(*self.data.T, color=color, marker='o')
         plt.title(self.title)
         plt.show()
 
