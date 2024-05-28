@@ -44,5 +44,10 @@ class Object:
 
         self.transform(mirroring_matrix)
 
+    def project(self, axis: str):
+        projection_matrix = np.eye(self.data.shape[1])
+        projection_matrix[DIMENSIONS.index(axis), DIMENSIONS.index(axis)] = 0
+        self.transform(projection_matrix)
+
     def transform(self, transformation_matrix: np.ndarray):
         self.data = np.dot(self.data, transformation_matrix)
