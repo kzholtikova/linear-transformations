@@ -33,3 +33,6 @@ class Object:
             rotation_matrix = np.insert(rotation_matrix, DIMENSIONS.index(dim), rotation_pivot, axis=1)
 
         self.data = np.dot(self.data, rotation_matrix)
+
+    def scale(self, factor: int):
+        self.data *= factor
