@@ -32,7 +32,7 @@ class Object:
             rotation_matrix = np.insert(rotation_matrix, DIMENSIONS.index(axis), rotation_pivot[:2], axis=0)
             rotation_matrix = np.insert(rotation_matrix, DIMENSIONS.index(axis), rotation_pivot, axis=1)
 
-        self.data = np.dot(self.data, rotation_matrix)
+        self.transform(rotation_matrix)
 
     def scale(self, factor: int):
         self.data *= factor
@@ -43,5 +43,7 @@ class Object:
             if i != DIMENSIONS.index(axis):
                 mirroring_matrix[i, i] = -1
 
-        self.data = np.dot(self.data, mirroring_matrix)
-        
+        self.transform(mirroring_matrix)
+
+    def transform(self, transformation_matrix: np.ndarray):
+        self.data = np.dot(self.data, transformation_matrix)
