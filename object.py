@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 DIMENSIONS = ['x', 'y', 'z']
 
+
 class Object:
     def __init__(self, data: np.ndarray, title: str):
         self.data = data
@@ -43,6 +44,11 @@ class Object:
                 mirroring_matrix[i, i] = -1
 
         self.transform(mirroring_matrix)
+
+    def shear(self, factor: int, axis: str):
+        shearing_matrix = np.eye(self.data.shape[1])
+        shearing_matrix[DIMENSIONS.index(axis)] = [1 if x == DIMENSIONS.index(axis) else factor for x in range(self.data.shape[1])]
+        self.transform(shearing_matrix)
 
     def project(self, axis: str):
         projection_matrix = np.eye(self.data.shape[1])
