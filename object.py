@@ -15,12 +15,13 @@ class Object:
         if self.data.shape[1] == 3:
             ax = ax.add_subplot(projection='3d')
             ax.set_zlabel('Z')
+            ax.set_aspect('auto')
         else:
             ax = ax.add_subplot()
+            ax.axis('equal')
 
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
-        ax.axis('equal')
         ax.plot(*self.data.T, color=color, marker='o')
         plt.title(self.title)
         plt.suptitle(self.suptitle) if self.suptitle else None
@@ -34,10 +35,10 @@ class Object:
             rotation_matrix = np.insert(rotation_matrix, DIMENSIONS.index(axis), rotation_pivot[:2], axis=0)
             rotation_matrix = np.insert(rotation_matrix, DIMENSIONS.index(axis), rotation_pivot, axis=1)
 
-        return self.transform(rotation_matrix, f'rotation by {angle}')
+        return self.transform(rotation_matrix, f'rotation by {angle}°')
 
     def scale(self, factor: int):
-        return Object(self.data * factor, self.title)
+        return Object(self.data * factor, f'{self.title} | scaling by {factor}')
 
     def mirror(self, axis: str):
         mirroring_matrix = np.eye(self.data.shape[1])
